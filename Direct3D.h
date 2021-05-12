@@ -1,5 +1,7 @@
 #pragma once
 #include <d3d11.h>
+#include <assert.h>
+#define SAFE_DELETE(p) if(p != nullptr){ delete p; p = nullptr;}
 
 //ƒŠƒ“ƒJ
 #pragma comment(lib, "d3d11.lib")

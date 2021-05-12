@@ -66,7 +66,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Direct3D::Initialize(winW, winH, hWnd);
 
 	pQuad = new Quad;
-	pQuad->Initialize();
+	if (FAILED(pQuad->Initialize()))
+	{
+		return 0;
+	}
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -98,7 +101,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	//解放処理
 	pQuad->Release();
-	delete pQuad;
+	SAFE_DELETE(pQuad);
 	Direct3D::Release();
 
 	return 0;
