@@ -1,6 +1,9 @@
 #include "Quad.h"
 
-Quad::Quad()
+Quad::Quad():
+	pVertexBuffer_(nullptr), 
+	pIndexBuffer_(nullptr),
+	pConstantBuffer_(nullptr)
 {
 }
 
@@ -96,4 +99,7 @@ void Quad::Draw()
 
 void Quad::Release()
 {
+	pConstantBuffer_->Release();
+	pIndexBuffer_->Release();
+	pVertexBuffer_->Release();
 }

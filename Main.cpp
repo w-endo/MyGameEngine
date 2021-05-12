@@ -16,6 +16,8 @@ Quad* pQuad;
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
+
+
 	//ウィンドウクラス（設計図）を作成
 	WNDCLASSEX wc;
 
@@ -95,6 +97,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	}
 
 	//解放処理
+	pQuad->Release();
+	delete pQuad;
 	Direct3D::Release();
 
 	return 0;
