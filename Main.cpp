@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "Direct3D.h"
 #include "Quad.h"
+#include "Camera.h"
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -16,8 +17,6 @@ Quad* pQuad;
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
-
-
 	//ウィンドウクラス（設計図）を作成
 	WNDCLASSEX wc;
 
@@ -65,6 +64,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//Direct3D初期化
 	Direct3D::Initialize(winW, winH, hWnd);
 
+	Camera::Initialize();
+
+
+
+
+
+
 	pQuad = new Quad;
 	if (FAILED(pQuad->Initialize()))
 	{
@@ -87,7 +93,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			//ゲームの処理
-
+			Camera::Update();
 
 
 			Direct3D::BeginDraw();
