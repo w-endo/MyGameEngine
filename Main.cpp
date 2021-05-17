@@ -99,8 +99,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Direct3D::BeginDraw();
 
 			//•`‰æˆ—
-			pQuad->Draw();
-
+			static float angle = 0;
+			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
+			angle+=0.1f;
+			pQuad->Draw(mat);
 			Direct3D::EndDraw();
 		}
 	}
