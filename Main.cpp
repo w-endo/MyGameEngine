@@ -1,7 +1,8 @@
 //インクルード
 #include <Windows.h>
 #include "Direct3D.h"
-#include "Quad.h"
+//#include "Quad.h"
+#include "Dice.h"
 #include "Camera.h"
 
 //定数宣言
@@ -12,7 +13,8 @@ const int CLIENT_HEIGHT = 600; //ウィンドウの高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-Quad* pQuad;
+//Quad* pQuad;
+Dice* pDice;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -69,10 +71,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 
 
+	//pQuad = new Quad;
+	//if (FAILED(pQuad->Initialize()))
+	//{
+	//	return 0;
+	//}
 
-
-	pQuad = new Quad;
-	if (FAILED(pQuad->Initialize()))
+	pDice = new Dice;
+	if (FAILED(pDice->Initialize()))
 	{
 		return 0;
 	}
@@ -100,16 +106,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//描画処理
 			static float angle = 0;
-			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
-			angle+=0.1f;
-			pQuad->Draw(mat);
+			XMMATRIX mat = XMMatrixRotationX(XMConvertToRadians(angle)) * XMMatrixRotationY(XMConvertToRadians(angle));
+			angle+=0.02f;
+			//pQuad->Draw(mat);
+			pDice->Draw(mat);
 			Direct3D::EndDraw();
 		}
 	}
 
 	//解放処理
-	pQuad->Release();
-	SAFE_DELETE(pQuad);
+	//pQuad->Release();
+	//SAFE_DELETE(pQuad);
+	pDice->Release();
+	SAFE_DELETE(pDice);
+	
 	Direct3D::Release();
 
 	return 0;

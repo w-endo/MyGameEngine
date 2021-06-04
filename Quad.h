@@ -9,6 +9,7 @@ using namespace DirectX;
 struct CONSTANT_BUFFER
 {
 	XMMATRIX	matWVP;
+	XMMATRIX	matW;
 };
 
 //頂点情報
@@ -21,15 +22,24 @@ struct VERTEX
 
 class Quad
 {
+protected:
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
-	ID3D11Buffer* pIndexBuffer_;
-	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
-	Texture* pTexture_;
+	ID3D11Buffer* pIndexBuffer_;	//インデックスバッファ
+	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ	
+	Texture* pTexture_;				//テクスチャ
+	int indexCount_;				//インデックス情報の数
+
+
+	virtual HRESULT CreateVertex();		//頂点バッファ作成
+	virtual HRESULT CreateIndex();		//インデックスバッファ作成
+	virtual HRESULT CreateConstant();	//コンスタントバッファ作成
+	virtual HRESULT CreateTexture();	//テクスチャ作成
+
 
 public:
 	Quad();
 	~Quad();
-	HRESULT Initialize();
-	void Draw(XMMATRIX& worldMatrix);
-	void Release();
+	virtual HRESULT Initialize();
+	virtual void Draw(XMMATRIX& worldMatrix);
+	virtual void Release();
 };

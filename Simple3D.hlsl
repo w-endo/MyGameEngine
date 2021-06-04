@@ -11,6 +11,7 @@ SamplerState	g_sampler : register(s0);	//サンプラー
 cbuffer global
 {
 	float4x4	matWVP;			// ワールド・ビュー・プロジェクションの合成行列
+	float4x4	matW;			//ワールド行列
 };
 
 //───────────────────────────────────────
@@ -20,7 +21,7 @@ struct VS_OUT
 {
 	float4 pos  : SV_POSITION;	//位置
 	float2 uv	: TEXCOORD;		//UV座標
-	float4 color: COLOR;		//色（明るさ）
+	float4 color	: COLOR;	//色（明るさ）
 };
 
 //───────────────────────────────────────
@@ -36,10 +37,12 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 	outData.pos = mul(pos, matWVP);
 	outData.uv = uv;
 
-	float4 light = float4(0, 0, -1, 0);
+	//法線を回転
+	normal = mul(normal, matW);
+
+	float4 light = float4(-1, 1, -1, 0);
 	light = normalize(light);
 	outData.color = dot(normal, light);
-
 
 	//まとめて出力
 	return outData;
