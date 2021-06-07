@@ -7,6 +7,9 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
+enum SHADER_TYPE { SHADER_3D, SHADER_2D, SHADER_MAX };
+
+
 namespace Direct3D
 {
 	extern ID3D11Device* pDevice;						//デバイス
@@ -27,4 +30,6 @@ namespace Direct3D
 
 	//解放
 	void Release();
+
+	void SetShader(SHADER_TYPE type);
 };
