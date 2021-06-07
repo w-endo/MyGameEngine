@@ -16,7 +16,8 @@ namespace Direct3D
 	void Initialize(int winW, int winH, HWND hWnd);
 
 	//シェーダー準備
-	void InitShader();
+	void InitShader2D();
+	void InitShader3D();
 
 	//描画開始
 	void BeginDraw();
