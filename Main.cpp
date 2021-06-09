@@ -86,7 +86,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	}
 
 	pSprite = new Sprite;
-	pSprite->Initialize();
+	pSprite->Initialize("Assets/dice.png");
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;

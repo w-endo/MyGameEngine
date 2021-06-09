@@ -32,14 +32,13 @@ HRESULT Texture::Load(std::string fileName)
 
 	CoUninitialize();
 
-	UINT imgWidth;
-	UINT imgHeight;
-	pFormatConverter->GetSize(&imgWidth, &imgHeight);
+
+	pFormatConverter->GetSize(&imgWidth_, &imgHeight_);
 
 	ID3D11Texture2D* pTexture;
 	D3D11_TEXTURE2D_DESC texdec;
-	texdec.Width = imgWidth;
-	texdec.Height = imgHeight;
+	texdec.Width = imgWidth_;
+	texdec.Height = imgHeight_;
 	texdec.MipLevels = 1;
 	texdec.ArraySize = 1;
 	texdec.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -53,7 +52,7 @@ HRESULT Texture::Load(std::string fileName)
 
 	D3D11_MAPPED_SUBRESOURCE hMappedres;
 	Direct3D::pContext->Map(pTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &hMappedres);
-	pFormatConverter->CopyPixels(nullptr, imgWidth * 4, imgWidth * imgHeight * 4, (BYTE*)hMappedres.pData);
+	pFormatConverter->CopyPixels(nullptr, imgWidth_ * 4, imgWidth_ * imgHeight_ * 4, (BYTE*)hMappedres.pData);
 	Direct3D::pContext->Unmap(pTexture, 0);
 
 	D3D11_SAMPLER_DESC  SamDesc;

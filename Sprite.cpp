@@ -14,7 +14,7 @@ Sprite::~Sprite()
 {
 }
 
-HRESULT Sprite::Initialize()
+HRESULT Sprite::Initialize(std::string fileName)
 {
 	// 頂点情報
 	if (FAILED(CreateVertex()))
@@ -35,7 +35,7 @@ HRESULT Sprite::Initialize()
 	}
 
 	//テクスチャ作成
-	if (FAILED(CreateTexture()))
+	if (FAILED(CreateTexture(fileName)))
 	{
 		return E_FAIL;
 	}
@@ -43,10 +43,10 @@ HRESULT Sprite::Initialize()
 	return S_OK;
 }
 
-HRESULT Sprite::CreateTexture()
+HRESULT Sprite::CreateTexture(std::string fileName)
 {
 	pTexture_ = new Texture;
-	if (FAILED(pTexture_->Load("Assets/dice.png")))
+	if (FAILED(pTexture_->Load(fileName.c_str())))
 	{
 		MessageBox(nullptr, "画像ファイルの読み込みに失敗しました", "エラー", MB_OK);
 		return E_FAIL;
@@ -131,9 +131,13 @@ void Sprite::Draw(XMMATRIX& worldMatrix)
 {
 	Direct3D::SetShader(SHADER_2D);
 
+	XMMATRIX scaleMatrix = XMMatrixScaling((float)pTexture_->GetWidth() / Direct3D::screenWidth, (float)pTexture_->GetHeight() / Direct3D::screenHeight, 1.0f);;
+
+
+
 	//コンスタントバッファに渡す情報
 	CONSTANT_BUFFER cb;
-	cb.matW = XMMatrixTranspose(worldMatrix);
+	cb.matW = XMMatrixTranspose(scaleMatrix * worldMatrix);
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める

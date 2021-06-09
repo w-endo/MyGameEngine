@@ -32,13 +32,13 @@ protected:
 	virtual HRESULT CreateVertex();		//頂点バッファ作成
 	virtual HRESULT CreateIndex();		//インデックスバッファ作成
 	virtual HRESULT CreateConstant();	//コンスタントバッファ作成
-	virtual HRESULT CreateTexture();	//テクスチャ作成
+	virtual HRESULT CreateTexture(std::string fileName);	//テクスチャ作成
 
 
 public:
 	Sprite();
 	~Sprite();
-	virtual HRESULT Initialize();
+	virtual HRESULT Initialize(std::string fileName);
 	virtual void Draw(XMMATRIX& worldMatrix);
 	virtual void Release();
 };

@@ -11,7 +11,8 @@ namespace Direct3D
 	ID3D11DeviceContext* pContext;				//デバイスコンテキスト
 	IDXGISwapChain* pSwapChain;					//スワップチェイン
 	ID3D11RenderTargetView* pRenderTargetView;	//レンダーターゲットビュー
-
+	int screenWidth;
+	int screenHeight;
 
 	struct SHADER_BUNDLE
 	{
@@ -27,6 +28,9 @@ namespace Direct3D
 //初期化
 void Direct3D::Initialize(int winW, int winH, HWND hWnd)
 {
+	screenWidth = winW;
+	screenHeight = winH;
+
 	///////////////////////////いろいろ準備するための設定///////////////////////////////
 	//いろいろな設定項目をまとめた構造体
 	DXGI_SWAP_CHAIN_DESC scDesc;
