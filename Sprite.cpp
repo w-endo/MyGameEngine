@@ -127,7 +127,7 @@ HRESULT Sprite::CreateVertex()
 	return S_OK;
 }
 
-void Sprite::Draw(XMMATRIX& worldMatrix)
+void Sprite::Draw(Transform transform)
 {
 	Direct3D::SetShader(SHADER_2D);
 
@@ -137,7 +137,7 @@ void Sprite::Draw(XMMATRIX& worldMatrix)
 
 	//コンスタントバッファに渡す情報
 	CONSTANT_BUFFER cb;
-	cb.matW = XMMatrixTranspose(scaleMatrix * worldMatrix);
+	cb.matW = XMMatrixTranspose(scaleMatrix * transform.GetWorldMatrix());
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める

@@ -5,6 +5,7 @@
 #include "Dice.h"
 #include "Sprite.h"
 #include "Camera.h"
+#include "Transform.h"
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -110,22 +111,23 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Direct3D::BeginDraw();
 
 			//描画処理
-			static float angle = 0;
-			XMMATRIX mat = XMMatrixRotationX(XMConvertToRadians(angle)) * XMMatrixRotationY(XMConvertToRadians(angle));
-			angle+=0.02f;
-			//pQuad->Draw(mat);
+			Transform spriteTrans;
+			spriteTrans.position_.x = 0.2f;
+			pSprite->Draw(spriteTrans);
 
-			mat = XMMatrixIdentity();
 
-			pSprite->Draw(mat);
-			pDice->Draw(mat);
+			Transform diceTrans;
+			diceTrans.position_.x = 5;
+			diceTrans.rotate_.z = 30;
+			diceTrans.scale_.x = 2;
+
+			pDice->Draw(diceTrans);
+
 			Direct3D::EndDraw();
 		}
 	}
 
 	//解放処理
-	//pQuad->Release();
-	//SAFE_DELETE(pQuad);
 	pDice->Release();
 	SAFE_DELETE(pDice);
 

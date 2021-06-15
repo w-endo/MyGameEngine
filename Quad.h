@@ -2,6 +2,7 @@
 #include <DirectXMath.h>
 #include "Direct3D.h"
 #include "Texture.h"
+#include "Transform.h"
 
 using namespace DirectX;
 
@@ -40,6 +41,6 @@ public:
 	Quad();
 	~Quad();
 	virtual HRESULT Initialize();
-	virtual void Draw(XMMATRIX& worldMatrix);
+	virtual void Draw(Transform transform);
 	virtual void Release();
 };

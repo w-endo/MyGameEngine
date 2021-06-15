@@ -3,9 +3,6 @@
 
 using namespace DirectX;
 
-#define vecX  m128_f32[0]
-#define vecY  m128_f32[1]
-#define vecZ  m128_f32[2]
 
 
 //位置、向き、拡大率などを管理するクラス
@@ -16,9 +13,9 @@ class Transform
 	XMMATRIX matScale_;	//拡大行列
 
 public:
-	XMVECTOR position_;	//位置
-	XMVECTOR rotate_;	//向き
-	XMVECTOR scale_;	//拡大率
+	XMFLOAT3  position_;//位置
+	XMFLOAT3  rotate_;	//向き
+	XMFLOAT3  scale_;	//拡大率
 
 	//コンストラクタ
 	Transform();
