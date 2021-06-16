@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "Fbx.h"
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -18,6 +19,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //Quad* pQuad;
 Dice* pDice;
 Sprite* pSprite;
+Fbx* pFbx;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -89,6 +91,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	pSprite = new Sprite;
 	pSprite->Initialize("Assets/dice.png");
 
+	pFbx = new Fbx;
+	pFbx->Load("Assets/oden.fbx");
+
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -123,11 +128,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			pDice->Draw(diceTrans);
 
+			Transform odenTrans;
+			pFbx->Draw(odenTrans);
+
 			Direct3D::EndDraw();
 		}
 	}
 
 	//解放処理
+	pFbx->Release();
+	SAFE_DELETE(pFbx);
+
 	pDice->Release();
 	SAFE_DELETE(pDice);
 
