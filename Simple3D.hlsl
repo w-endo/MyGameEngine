@@ -11,7 +11,9 @@ SamplerState	g_sampler : register(s0);	//サンプラー
 cbuffer global
 {
 	float4x4	matWVP;			// ワールド・ビュー・プロジェクションの合成行列
-	float4x4	matW;			//ワールド行列
+	float4x4	matNormal;		//法線を変形させる行列
+	float4		diffuseColor;		// ディフューズカラー（マテリアルの色）
+	bool		isTexture;		// テクスチャ貼ってあるかどうか
 };
 
 //───────────────────────────────────────
@@ -38,7 +40,8 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 	outData.uv = uv;
 
 	//法線を回転
-	normal = mul(normal, matW);
+	normal = mul(normal, matNormal);
+	normal = normalize(normal);
 
 	float4 light = float4(-1, 1, -1, 0);
 	light = normalize(light);
@@ -53,8 +56,18 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-	float4 diffuse = g_texture.Sample(g_sampler, inData.uv) * inData.color;
-	float4 ambient = g_texture.Sample(g_sampler, inData.uv) * float4(0.2, 0.2, 0.2, 1);
-
+	float4 diffuse;
+	float4 ambient;
+	if (isTexture)
+	{
+		diffuse = g_texture.Sample(g_sampler, inData.uv) * inData.color;
+		ambient = g_texture.Sample(g_sampler, inData.uv) * float4(0.2, 0.2, 0.2, 1);
+	}
+	else
+	{
+		diffuse = diffuseColor * inData.color;
+		ambient = diffuseColor * float4(0.2, 0.2, 0.2, 1);
+	}
 	return diffuse + ambient;
+	
 }

@@ -16,12 +16,15 @@ class Fbx
 	struct MATERIAL
 	{
 		Texture* pTexture;
+		XMFLOAT4	diffuse;
 	};
 
 	struct CONSTANT_BUFFER
 	{
 		XMMATRIX	matWVP;
 		XMMATRIX	matW;
+		XMFLOAT4	diffuseColor;
+		int		isTexture;
 	};
 
 	struct VERTEX

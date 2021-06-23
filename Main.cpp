@@ -129,6 +129,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			pDice->Draw(diceTrans);
 
 			Transform odenTrans;
+			static float angle = 0.0f;
+			angle+=0.05;
+			odenTrans.rotate_.y = angle;
+
+			static float count = 0;
+			count += 0.001;
+			//odenTrans.position_.x = sin(count)*3;
+
+			//odenTrans.scale_.y = sin(count)*2 +3;
+
 			pFbx->Draw(odenTrans);
 
 			Direct3D::EndDraw();

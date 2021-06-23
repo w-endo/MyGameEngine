@@ -211,6 +211,10 @@ void Fbx::InitMaterial(fbxsdk::FbxNode* pNode)
 		else
 		{
 			pMaterialList_[i].pTexture = nullptr;
+			//マテリアルの色
+			FbxSurfaceLambert* pMaterial = (FbxSurfaceLambert*)pNode->GetMaterial(i);
+			FbxDouble3  diffuse = pMaterial->Diffuse;
+			pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
 		}
 	}
 }
@@ -243,7 +247,9 @@ void Fbx::Draw(Transform& transform)
 		//コンスタントバッファに渡す情報
 		CONSTANT_BUFFER cb;
 		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-		cb.matW = XMMatrixTranspose(transform.GetWorldMatrix());
+		cb.matW = XMMatrixTranspose(transform.GetNormalMatrix());
+		cb.isTexture = pMaterialList_[i].pTexture != nullptr;
+		cb.diffuseColor = pMaterialList_[i].diffuse;
 
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
