@@ -118,7 +118,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//•`‰æˆ—
 			Transform spriteTrans;
 			spriteTrans.position_.x = 0.2f;
-			pSprite->Draw(spriteTrans);
+			//pSprite->Draw(spriteTrans);
 
 
 			Transform diceTrans;
