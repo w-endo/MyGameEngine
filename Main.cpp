@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Transform.h"
 #include "Fbx.h"
+#include "Input.h"
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -71,6 +72,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//Direct3D初期化
 	Direct3D::Initialize(winW, winH, hWnd);
 
+	Input::Initialize(hWnd);
+
 	Camera::Initialize();
 
 
@@ -110,8 +113,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			//ゲームの処理
+			Input::Update();
 			Camera::Update();
-
 
 			Direct3D::BeginDraw();
 
@@ -146,6 +149,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	}
 
 	//解放処理
+	Input::Release();
+
 	pFbx->Release();
 	SAFE_DELETE(pFbx);
 
