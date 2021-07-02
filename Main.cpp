@@ -1,13 +1,8 @@
 //インクルード
 #include <Windows.h>
-#include "Direct3D.h"
-//#include "Quad.h"
-#include "Dice.h"
-#include "Sprite.h"
-#include "Camera.h"
-#include "Transform.h"
-#include "Fbx.h"
-#include "Input.h"
+#include "Engine/Direct3D.h"
+#include "Engine/Camera.h"
+#include "Engine/Input.h"
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";  //ウィンドウクラス名
@@ -17,10 +12,6 @@ const int CLIENT_HEIGHT = 600; //ウィンドウの高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-//Quad* pQuad;
-Dice* pDice;
-Sprite* pSprite;
-Fbx* pFbx;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -77,26 +68,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Camera::Initialize();
 
 
-
-
-	//pQuad = new Quad;
-	//if (FAILED(pQuad->Initialize()))
-	//{
-	//	return 0;
-	//}
-
-	pDice = new Dice;
-	if (FAILED(pDice->Initialize()))
-	{
-		return 0;
-	}
-
-	pSprite = new Sprite;
-	pSprite->Initialize("Assets/dice.png");
-
-	pFbx = new Fbx;
-	pFbx->Load("Assets/oden.fbx");
-
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -119,47 +90,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Direct3D::BeginDraw();
 
 			//描画処理
-			Transform spriteTrans;
-			spriteTrans.position_.x = 0.2f;
-			//pSprite->Draw(spriteTrans);
-
-
-			Transform diceTrans;
-			diceTrans.position_.x = 5;
-			diceTrans.rotate_.z = 30;
-			diceTrans.scale_.x = 2;
-
-			pDice->Draw(diceTrans);
-
-			Transform odenTrans;
-			static float angle = 0.0f;
-			angle+=0.05;
-			odenTrans.rotate_.y = angle;
-
-			static float count = 0;
-			count += 0.001;
-			//odenTrans.position_.x = sin(count)*3;
-
-			//odenTrans.scale_.y = sin(count)*2 +3;
-
-			pFbx->Draw(odenTrans);
-
 			Direct3D::EndDraw();
 		}
 	}
 
 	//解放処理
 	Input::Release();
-
-	pFbx->Release();
-	SAFE_DELETE(pFbx);
-
-	pDice->Release();
-	SAFE_DELETE(pDice);
-
-	pSprite->Release();
-	SAFE_DELETE(pSprite);
-	
 	Direct3D::Release();
 
 	return 0;
