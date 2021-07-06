@@ -1,23 +1,17 @@
-#pragma once
+#include "GameObject.h"
 
-#include <string>
-#include <list>
-#include "Transform.h"
-
-class GameObject
+GameObject::GameObject() :
+	GameObject(nullptr, "")
 {
-	std::list<GameObject*> childList_;
-	Transform	transform_;
-	GameObject*	pParent_;
-	std::string	objectName_;
+}
 
-public:
-	GameObject();
-	GameObject(GameObject* parent, const std::string& name);
-	~GameObject();
+GameObject::GameObject(GameObject* parent, const std::string& name)
+	: pParent_(parent),
+	objectName_(name)
+{
+	childList_.clear();
+}
 
-	œœœœ void Initialize() œœœ;
-	œœœœ void Update() œœœ;
-	œœœœ void Draw() œœœ;
-	œœœœ void Release() œœœ;
-};
+GameObject::~GameObject()
+{
+}
