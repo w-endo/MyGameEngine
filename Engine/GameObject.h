@@ -22,7 +22,9 @@ public:
 	virtual void Draw() = 0;
 	virtual void Release() = 0;
 
+	void UpdateSub();
 	void DrawSub();
+	void ReleaseSub();
 
 	template <class T>
 	void Instantiate(GameObject* parent)
