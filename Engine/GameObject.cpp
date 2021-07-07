@@ -15,3 +15,12 @@ GameObject::GameObject(GameObject* parent, const std::string& name)
 GameObject::~GameObject()
 {
 }
+
+void GameObject::DrawSub()
+{
+	//©•ª‚ÌDrawŠÖ”‚ğŒÄ‚Ô
+	Draw();
+
+
+
+}
