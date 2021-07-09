@@ -26,12 +26,21 @@ public:
 	void DrawSub();
 	void ReleaseSub();
 
+	XMFLOAT3 GetPosition() { return transform_.position_; }
+	XMFLOAT3 GetRotate() { return transform_.rotate_; }
+	XMFLOAT3 GetScale() { return transform_.scale_; }
+	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
+	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
+	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
+
+
 	template <class T>
-	void Instantiate(GameObject* parent)
+	GameObject* Instantiate(GameObject* parent)
 	{
 		T* p;
 		p = new T(parent);
 		p->Initialize();
 		childList_.push_back(p);
+		return p;
 	}
 };

@@ -1,4 +1,6 @@
+#include "Engine/Input.h"
 #include "Player.h"
+#include "Bullet.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -22,6 +24,21 @@ void Player::Initialize()
 void Player::Update()
 {
     transform_.rotate_.y++;
+
+    if (Input::IsKey(DIK_LEFT))
+    {
+        transform_.position_.x -= 0.1f;
+    }
+    if (Input::IsKey(DIK_RIGHT))
+    {
+        transform_.position_.x += 0.1f;
+    }
+
+    if (Input::IsKeyDown(DIK_SPACE))
+    {
+        GameObject *pBullet = Instantiate<Bullet>(pParent_);
+        pBullet->SetPosition( transform_.position_);
+    }
 }
 
 //描画
