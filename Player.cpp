@@ -1,10 +1,11 @@
 #include "Engine/Input.h"
+#include "Engine/Model.h"
 #include "Player.h"
 #include "Bullet.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameObject(parent, "Player")
+    :GameObject(parent, "Player"), hModel_(-1)
 {
 }
 
@@ -16,8 +17,10 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    pFbx = new Fbx;
-    pFbx->Load("Assets\\oden.fbx");
+    //モデルデータのロード
+    hModel_ = Model::Load("Assets\\oden.fbx");
+    assert(hModel_ >= 0);
+
 }
 
 //更新
@@ -44,7 +47,8 @@ void Player::Update()
 //描画
 void Player::Draw()
 {
-    pFbx->Draw(transform_);
+    Model::SetTransform(hModel_, transform_);
+    Model::Draw(hModel_);
 }
 
 //開放

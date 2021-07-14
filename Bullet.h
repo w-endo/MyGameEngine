@@ -1,11 +1,10 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Fbx.h"
 
 //◆◆◆を管理するクラス
 class Bullet : public GameObject
 {
-    Fbx* pFbx;
+    int hModel_;    //モデル番号
 public:
     //コンストラクタ
     Bullet(GameObject* parent);

@@ -1,8 +1,9 @@
 #include "Bullet.h"
+#include "Engine/Model.h"
 
 //コンストラクタ
 Bullet::Bullet(GameObject* parent)
-    :GameObject(parent, "Bullet")
+    :GameObject(parent, "Bullet"), hModel_(-1)
 {
 }
 
@@ -14,8 +15,9 @@ Bullet::~Bullet()
 //初期化
 void Bullet::Initialize()
 {
-    pFbx = new Fbx;
-    pFbx->Load("Assets\\oden.fbx");
+    //モデルデータのロード
+    hModel_ = Model::Load("Assets\\oden.fbx");
+    assert(hModel_ >= 0);
 
     transform_.scale_.x = 0.2f;
     transform_.scale_.y = 0.2f;
@@ -36,7 +38,8 @@ void Bullet::Update()
 //描画
 void Bullet::Draw()
 {
-    pFbx->Draw(transform_);
+    Model::SetTransform(hModel_, transform_);
+    Model::Draw(hModel_);
 }
 
 //開放
