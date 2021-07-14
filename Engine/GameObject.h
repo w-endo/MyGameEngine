@@ -11,6 +11,7 @@ protected:
 	Transform	transform_;
 	GameObject* pParent_;
 	std::string	objectName_;
+	bool isDead;
 
 public:
 	GameObject();
@@ -33,6 +34,7 @@ public:
 	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 
+	void KillMe();
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)

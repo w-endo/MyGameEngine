@@ -26,6 +26,11 @@ void Bullet::Initialize()
 void Bullet::Update()
 {
     transform_.position_.z += 0.5f;
+
+    if (transform_.position_.z > 10)
+    {
+        KillMe();
+    }
 }
 
 //•`‰æ
