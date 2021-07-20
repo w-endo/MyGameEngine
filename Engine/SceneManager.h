@@ -1,9 +1,18 @@
 #pragma once
 #include "GameObject.h"
 
+//ゲームに登場するシーン
+enum SCENE_ID
+{
+    SCENE_ID_TITLE = 0,
+    SCENE_ID_PLAY,
+};
+
 //◆◆◆を管理するクラス
 class SceneManager : public GameObject
 {
+    SCENE_ID nowScene_;
+    SCENE_ID nextScene_;
 
 public:
     //コンストラクタ
@@ -23,4 +32,6 @@ public:
 
     //開放
     void Release() override;
+
+    void ChangeScene(SCENE_ID nestScene);
 };
