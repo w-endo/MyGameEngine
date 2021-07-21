@@ -8,7 +8,8 @@ GameObject::GameObject() :
 GameObject::GameObject(GameObject* parent, const std::string& name)
 	: pParent_(parent),
 	objectName_(name),
-	isDead(false)
+	isDead(false),
+	pCollider_(nullptr)
 {
 	childList_.clear();
 }
@@ -39,6 +40,9 @@ void GameObject::UpdateSub()
 		else
 		{
 			i++;
+
+			RecursiveCollison()
+
 		}
 	}
 
@@ -76,4 +80,34 @@ void GameObject::ReleaseSub()
 void GameObject::KillMe()
 {
 	isDead = true;
+}
+
+void GameObject::AddCollider(Collider* pCollider)
+{
+	pCollider_ = pCollider;
+}
+
+void GameObject::RecursiveCollison(GameObject* pTarget)
+{
+
+
+
+
+
+
+
+
+}
+
+void GameObject::Collision(GameObject* pTarget)
+{
+	float x = transform_.position_.x - pTarget->transform_.position_.x;
+	float y = transform_.position_.y - pTarget->transform_.position_.y;
+	float z = transform_.position_.z - pTarget->transform_.position_.z;
+	float r = pCollider_->GetRadius() + pTarget->pCollider_->GetRadius();
+
+	if (x * x + y * y + z * z < r * r)
+	{
+		int a = 0;
+	}
 }

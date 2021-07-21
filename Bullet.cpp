@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Engine/Model.h"
+#include "Engine/Collider.h"
 
 //コンストラクタ
 Bullet::Bullet(GameObject* parent)
@@ -22,6 +23,9 @@ void Bullet::Initialize()
     transform_.scale_.x = 0.2f;
     transform_.scale_.y = 0.2f;
     transform_.scale_.z = 0.2f;
+
+    Collider* collision = new Collider(1.2f);
+    AddCollider(collision);
 }
 
 //更新
@@ -29,7 +33,7 @@ void Bullet::Update()
 {
     transform_.position_.z += 0.5f;
 
-    if (transform_.position_.z > 10)
+    if (transform_.position_.z > 20)
     {
         KillMe();
     }

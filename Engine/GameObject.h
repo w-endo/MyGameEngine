@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include "Transform.h"
+#include "Collider.h"
 
 class GameObject
 {
@@ -12,6 +13,7 @@ protected:
 	GameObject* pParent_;
 	std::string	objectName_;
 	bool isDead;
+	Collider* pCollider_;
 
 public:
 	GameObject();
@@ -35,6 +37,12 @@ public:
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 
 	void KillMe();
+
+	void AddCollider(Collider* pCollider);
+
+
+	void RecursiveCollison(GameObject* pTarget);
+	void Collision(GameObject* pTarget);
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
