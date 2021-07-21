@@ -130,17 +130,20 @@ void GameObject::RecursiveCollison(GameObject* pTarget)
 	}
 	for (auto i = pTarget->childList_.begin(); i != pTarget->childList_.end(); i++)
 	{
-		if (*i == this || (*i)->pCollider_ == nullptr)
-		{
-			continue;
-		}
 
-		Collision(*i);
+
+		RecursiveCollison(*i);
 	}
 }
 
 void GameObject::Collision(GameObject* pTarget)
 {
+	if (pTarget == this || pTarget->pCollider_ == nullptr)
+	{
+		return;
+	}
+
+
 	float x = transform_.position_.x - pTarget->transform_.position_.x;
 	float y = transform_.position_.y - pTarget->transform_.position_.y;
 	float z = transform_.position_.z - pTarget->transform_.position_.z;
