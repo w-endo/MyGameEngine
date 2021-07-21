@@ -30,5 +30,8 @@ namespace Model
 
 
 	void Draw(int handle);
+
+
+	void AllRelease();
 };
 

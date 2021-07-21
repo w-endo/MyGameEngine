@@ -37,6 +37,10 @@ public:
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 
 	void KillMe();
+	GameObject* FindChildObject(std::string name);
+	GameObject* GetRootJob();
+	GameObject* FindObject(std::string name);
+
 
 	void AddCollider(Collider* pCollider);
 

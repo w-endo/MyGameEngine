@@ -41,3 +41,14 @@ void Model::Draw(int handle)
 {
     datas[handle]->pFbx->Draw(datas[handle]->transform);
 }
+
+void Model::AllRelease()
+{
+    for (int i = 0; i < datas.size(); i++)
+    {
+        datas[i]->pFbx->Release();
+        delete(datas[i]->pFbx);
+        delete(datas[i]);
+    }
+    datas.clear();
+}
