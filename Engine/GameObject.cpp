@@ -153,6 +153,6 @@ void GameObject::Collision(GameObject* pTarget)
 
 	if (x * x + y * y + z * z <= r * r)
 	{
-		int a = 0;
+		OnCollision(pTarget);
 	}
 }

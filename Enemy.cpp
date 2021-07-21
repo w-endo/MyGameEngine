@@ -40,3 +40,8 @@ void Enemy::Draw()
 void Enemy::Release()
 {
 }
+
+void Enemy::OnCollision(GameObject* pTarget)
+{
+    KillMe();
+}

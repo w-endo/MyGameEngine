@@ -48,6 +48,9 @@ public:
 	void RecursiveCollison(GameObject* pTarget);
 	void Collision(GameObject* pTarget);
 
+	virtual void OnCollision(GameObject* pTarget) {};
+
+
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
 	{

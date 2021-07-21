@@ -47,7 +47,18 @@ void Model::AllRelease()
     for (int i = 0; i < datas.size(); i++)
     {
         datas[i]->pFbx->Release();
-        delete(datas[i]->pFbx);
+        if (datas[i]->pFbx) {
+            delete(datas[i]->pFbx);
+        }
+
+        for (int j = i + 1; j < datas.size(); j++)
+        {
+            if (datas[i]->fileName == datas[j]->fileName)
+            {
+                datas[j]->pFbx = nullptr;
+            }
+        }
+
         delete(datas[i]);
     }
     datas.clear();
