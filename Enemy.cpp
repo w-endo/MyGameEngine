@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Engine/Collider.h"
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
